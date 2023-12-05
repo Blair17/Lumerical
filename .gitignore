@@ -1,4 +1,4 @@
-# n*.png
+*.png
 .venv/
 635_Optimised_OB_Sweep_Data/
 test_code/
