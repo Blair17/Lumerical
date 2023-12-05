@@ -1,5 +1,5 @@
 # n*.png
-venv/
+.venv/
 635_Optimised_OB_Sweep_Data/
 test_code/
 test1.py
