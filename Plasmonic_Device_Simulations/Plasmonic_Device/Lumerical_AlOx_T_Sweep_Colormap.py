@@ -12,8 +12,8 @@ def interpolate(x, y, array):
     # x = np.linspace(610, 660, 1000)
     # y = np.linspace(0, 1.0, 101)
     X, Y = np.meshgrid(x, y)
-    x_interp = np.linspace(615, 655, 1000)
-    y_interp = np.linspace(0.0, 1.00, 101)
+    x_interp = np.linspace(760, 800, 1000)
+    y_interp = np.linspace(0, 0.1, 21)
     points = np.column_stack((X.ravel(), Y.ravel()))
     
     interp_func = LinearNDInterpolator(points, array.ravel())
@@ -29,10 +29,10 @@ def interpolate(x, y, array):
 
 root = os.getcwd()
 
-files_refl = glob.glob('/Volumes/Sam/Lumerical/Scripting/051223/data/refl/*.txt')
+files_refl = glob.glob('/Volumes/Sam/Lumerical/Plasmonics/visible_metasurface_plasmonic/Au_Al2O3_ITO/Al2O3_Layer_Inv/Buffer_sweep/data/refl/*.txt')
 sorted_refl = sorted(files_refl, key = last_9chars)  
 
-files_phase = glob.glob('/Volumes/Sam/Lumerical/Scripting/051223/data/phase/*.txt')
+files_phase = glob.glob('/Volumes/Sam/Lumerical/Plasmonics/visible_metasurface_plasmonic/Au_Al2O3_ITO/Al2O3_Layer_Inv/Buffer_sweep/data/phase/*.txt')
 sorted_phase = sorted(files_phase, key = last_9chars)  
 
 l_array = []
@@ -65,13 +65,13 @@ for file in sorted_phase:
 l_array = np.array(l_array)
 p_array = np.array(p_array)
         
-x = np.linspace(615, 655, 1000)
-y = np.linspace(0, 1.00, 101)
+x = np.linspace(700, 850, 1000)
+y = np.linspace(0, 0.1, 21)
 
 x_l, y_l, z_l = interpolate(x, y, l_array)
 x_p, y_p, z_p = interpolate(x, y, p_array)
 
-rnge = np.arange(0, 101, 1)
+rnge = np.arange(0, 21, 1)
 high_refl = []
 phase_vals = []
 d = []
@@ -87,8 +87,8 @@ s1 = np.array([q / np.pi for q in d])
 s = np.array([k - min(k) for k in s1])
 
 color1 = iter(cm.jet(np.linspace(0, 1, len(high_refl))))
-opt_buffer_values = np.linspace(0, 1.0, 101)
-x_ticks = ['605', '615', '625', '625', '635', '645', '655']
+opt_buffer_values = np.linspace(0, 0.1, 21)
+x_ticks = ['760', '770', '780', '790', '800', '810', '800']
 
 fig, ax = plt.subplots(2, 2, figsize=[10,7])
 c = ax[0,0].pcolor(x_l, y_l, z_l, cmap='jet')
@@ -96,7 +96,7 @@ ax[0,0].set_xlabel('Wavelength [nm]', fontsize=16, fontweight='bold')
 ax[0,0].set_ylabel('Oxide Thickness [μm]', fontsize=16, fontweight='bold')
 ax[0,0].tick_params(axis='both', labelsize=14)
 cbar = fig.colorbar(c, ax=ax[0,0]) #, pad = 0.13)
-ax[0,0].set_xlim([617, 654])
+# ax[0,0].set_xlim([617, 654])
 cbar.set_label('Reflection [%]', size=16, fontweight='bold', rotation=270)
 cbar.set_ticks(ticks=[np.amax(z_l),np.amin(z_l)], 
                labels=['100', '0'], fontsize=18)
@@ -122,7 +122,7 @@ ax[1,0].set_xlabel('Wavelength [nm]', fontsize=16, fontweight='bold')
 ax[1,0].set_ylabel('Oxide Thickness [μm]', fontsize=16, fontweight='bold')
 ax[1,0].tick_params(axis='both', labelsize=14)
 cbar = fig.colorbar(c, ax=ax[1,0]) #, pad = 0.13)
-ax[1,0].set_xlim([617, 654])
+# ax[1,0].set_xlim([617, 654])
 cbar.set_label('Phase [π/rad]', size=18, fontweight='bold', rotation=270)
 cbar.set_ticks(ticks=[np.amax(s),np.amin(s)], 
                labels=[f'{np.round(np.amax(s),0)}', 
@@ -130,4 +130,4 @@ cbar.set_ticks(ticks=[np.amax(s),np.amin(s)],
                          fontsize=18)
 
 plt.tight_layout()
-plt.savefig('051223_GMRM.png')
+plt.savefig('Plasmonic_Al2O3_Variation.png')

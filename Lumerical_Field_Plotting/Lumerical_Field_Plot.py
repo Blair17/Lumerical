@@ -21,7 +21,7 @@ def add_colorbar(im, aspect=20, pad_fraction=0.5, **kwargs):
 
 root = os.getcwd()
 
-datafilename = '/Volumes/Sam/Lumerical/635_Optimised_Device/779_resonance_E_Field.txt'
+datafilename = '/Volumes/Sam/Lumerical/635_Optimised_Device/field_plots/635nm.txt'
 datafilepath = os.path.join(
     root,
     datafilename)
@@ -31,7 +31,7 @@ field1 = np.genfromtxt(
     skip_header=1,
     unpack=True)
 
-datafilename = '/Volumes/Sam/Lumerical/635_Optimised_Device/635_resonance_E_Field_r_index.txt'
+datafilename = '/Volumes/Sam/Lumerical/635_Optimised_Device/field_plots/contours.txt'
 datafilepath = os.path.join(
     root,
     datafilename)
@@ -147,8 +147,5 @@ print(sum(field1[13]))
 # ax3.set_yticklabels(yticks)
 # ax3.set_xticklabels(xticks)
 
-# ax3.set_title('n = 2.2', fontsize=16, fontweight='bold')
-
-# plt.suptitle('Mode Profile, 5 nm Charge Layer: TE, λ = 789.6 nm', fontsize=16, fontweight='bold')
 plt.tight_layout()
 plt.savefig('TE_test2.png')
